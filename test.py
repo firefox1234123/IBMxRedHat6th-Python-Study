@@ -35,7 +35,6 @@ def saveDB(db):
         pickle.dump(db, f)
 
 # 전체 삭제 함수
-
 def deleteAll(db):
     # 사용자 확인 입력
     confirm = input("정말 전체 삭제하시겠습니까? y/n : ")
@@ -49,7 +48,6 @@ def deleteAll(db):
 
 
 # 날짜 단위 삭제 함수
-
 def deleteDate(db):
     # 삭제할 날짜 입력
     date = input("삭제할 날짜를 입력해주세요. : ")
@@ -62,7 +60,6 @@ def deleteDate(db):
         print("해당 날짜가 존재하지 않습니다.")
 
 # 개별 항목 삭제 함수
-
 def deleteItem(db):
     # 삭제할 날짜 입력
     date = input("삭제할 날짜를 입력해주세요. : ")
@@ -90,7 +87,6 @@ def deleteItem(db):
 
 
 # DB 내보내기 (저장)
-
 def exportDB(db):
     saveDB(db)  # 현재 DB 상태를 파일에 저장
     print("파일 저장이 완료되었습니다.")
@@ -98,7 +94,6 @@ def exportDB(db):
 
 
 # DB 불러오기
-
 def importDB():
     db = loadDB()  # 파일에서 데이터 읽기
     print("파일 불러오기가 완료되었습니다.")
@@ -107,7 +102,6 @@ def importDB():
 
 
 # 메뉴 함수
-
 def menu5():
     db = loadDB()  # 프로그램 시작 시 DB 불러오기
 
