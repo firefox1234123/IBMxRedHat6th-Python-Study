@@ -34,9 +34,73 @@ def saveDB(db):
     with open(TODO_DB_PATH, "wb") as f:
         pickle.dump(db, f)
 
-def deleteDB(db, key):
-    if key in db:
-        del db[key]
+def deleteAll(db):
+    confirm = input("정말 전체 삭제하시겠습니까? y/n : ")
+    if confirm == "y":
+        db.clear()
+        saveDB(db)
+        print("전체 삭제가 완료되었습니다.")
+    else:
+        print("취소 되었습니다.")
+
+def deleteDate(db):
+    date = input("삭제할 날짜를 입력해주세요. : ")
+    if date in db:
+        del db[date]
+        saveDB(db)
+        print("날짜 삭제가 완료되었습니다.")
+    else:
+        print("해당 날짜가 존재하지 않습니다.")
+
+def deleteItem(db):
+    date = input("삭제할 날짜를 입력해주세요. : ")
+    if date in db:
+        print("현재 목록 :", db[date])
+        content = input("삭제할 내용을 입력해주세요. : ")
+        if content in db[date]:
+            db[date].remove(content)
+            if len(db[date]) == 0:
+                del db[date]
+            saveDB(db)
+            print("개별 삭제가 완료되었습니다.")
+        else:
+            print("해당 내용이 존재하지 않습니다.")
+    else:
+        print("해당 날짜가 존재하지 않습니다.")
+
+def exportDB(db):
+    saveDB(db)
+    print("파일 저장이 완료되었습니다.")
+
+def importDB():
+    db = loadDB()
+    print("파일 불러오기가 완료되었습니다.")
+    return db
+
+def menu5():
+    db = loadDB()
+
+    print("1. 전체 삭제")
+    print("2. 날짜 삭제")
+    print("3. 개별 삭제")
+    print("4. 내보내기")
+    print("5. 불러오기")
+
+    sub = input("선택하세요 : ")
+
+    if sub == "1":
+        deleteAll(db)
+    elif sub == "2":
+        deleteDate(db)
+    elif sub == "3":
+        deleteItem(db)
+    elif sub == "4":
+        exportDB(db)
+    elif sub == "5":
+        db = importDB()
+    else:
+        print("잘못된 입력입니다.")
+
 
 def main():
     while True:
@@ -67,7 +131,7 @@ def todoMain():
             todoUpdate(date)
             break
         elif(userinput == "4"):
-            print("할 일 삭제")
+            menu5()
         elif(userinput == "5"):
             print("종료")
             break
