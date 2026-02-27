@@ -34,60 +34,94 @@ def saveDB(db):
     with open(TODO_DB_PATH, "wb") as f:
         pickle.dump(db, f)
 
+# 전체 삭제 함수
+
 def deleteAll(db):
+    # 사용자 확인 입력
     confirm = input("정말 전체 삭제하시겠습니까? y/n : ")
+    
     if confirm == "y":
-        db.clear()
-        saveDB(db)
+        db.clear()        # 딕셔너리 전체 삭제
+        saveDB(db)        # 삭제된 상태를 파일에 저장
         print("전체 삭제가 완료되었습니다.")
     else:
         print("취소 되었습니다.")
 
+
+# 날짜 단위 삭제 함수
+
 def deleteDate(db):
+    # 삭제할 날짜 입력
     date = input("삭제할 날짜를 입력해주세요. : ")
-    if date in db:
-        del db[date]
-        saveDB(db)
+    
+    if date in db:        # 해당 날짜가 존재하면
+        del db[date]      # 해당 날짜 데이터 삭제
+        saveDB(db)        # 변경사항 저장
         print("날짜 삭제가 완료되었습니다.")
     else:
         print("해당 날짜가 존재하지 않습니다.")
 
+# 개별 항목 삭제 함수
+
 def deleteItem(db):
+    # 삭제할 날짜 입력
     date = input("삭제할 날짜를 입력해주세요. : ")
+    
     if date in db:
-        print("현재 목록 :", db[date])
+        print("현재 목록 :", db[date])  # 해당 날짜의 내용 출력
+        
+        # 삭제할 내용 입력
         content = input("삭제할 내용을 입력해주세요. : ")
+        
         if content in db[date]:
-            db[date].remove(content)
+            db[date].remove(content)  # 리스트에서 해당 항목 제거
+            
+            # 만약 해당 날짜에 내용이 하나도 없으면
             if len(db[date]) == 0:
-                del db[date]
-            saveDB(db)
+                del db[date]  # 날짜 자체도 삭제
+            
+            saveDB(db)  # 변경사항 저장
             print("개별 삭제가 완료되었습니다.")
         else:
             print("해당 내용이 존재하지 않습니다.")
     else:
         print("해당 날짜가 존재하지 않습니다.")
 
+
+
+# DB 내보내기 (저장)
+
 def exportDB(db):
-    saveDB(db)
+    saveDB(db)  # 현재 DB 상태를 파일에 저장
     print("파일 저장이 완료되었습니다.")
 
+
+
+# DB 불러오기
+
 def importDB():
-    db = loadDB()
+    db = loadDB()  # 파일에서 데이터 읽기
     print("파일 불러오기가 완료되었습니다.")
-    return db
+    return db      # 불러온 데이터 반환
+
+
+
+# 메뉴 함수
 
 def menu5():
-    db = loadDB()
+    db = loadDB()  # 프로그램 시작 시 DB 불러오기
 
+    # 메뉴 출력
     print("1. 전체 삭제")
     print("2. 날짜 삭제")
     print("3. 개별 삭제")
     print("4. 내보내기")
     print("5. 불러오기")
 
+    # 사용자 선택 입력
     sub = input("선택하세요 : ")
 
+    # 선택에 따른 기능 실행
     if sub == "1":
         deleteAll(db)
     elif sub == "2":
@@ -97,7 +131,7 @@ def menu5():
     elif sub == "4":
         exportDB(db)
     elif sub == "5":
-        db = importDB()
+        db = importDB()  # DB 다시 불러오기
     else:
         print("잘못된 입력입니다.")
 
