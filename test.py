@@ -25,19 +25,26 @@ class Todo:
 #test.obj 파일 열어서 반환하는 함수
 #print(loadDB()) -> 파일 내용 전부 출력
 def loadDB():
+    if not os.path.exists(TODO_DB_PATH):
+        print("\n[Notice] 저장된 파일이 없습니다. 빈 데이터를 반환합니다.")
+        return {}
+
     try:
         with open(TODO_DB_PATH, "rb") as f:
-            return pickle.load(f)
-    except FileNotFoundError:
-        return {}
-    except EOFError:
+            loaded_db = pickle.load(f)    # loaded_db 변수에 담기
+            return loaded_db   # 담아둔 데이터를 최종 반환
+    except (EOFError, FileNotFoundError):
         return {}
 
 
 #test.obj 파일에 기존 데이터 무시하고 덮어씌우는 함수
 def saveDB(db):
-    with open(TODO_DB_PATH, "wb") as f:
-        pickle.dump(db, f)
+    try:
+        with open(TODO_DB_PATH, "wb") as f:
+            pickle.dump(db, f)
+        print("\n[Success] 파일 저장이 완료되었습니다. (내보내기)")
+    except Exception as e:
+        print(f"\n[Error] 저장 중 문제가 발생했습니다: {e}")
 
 
 # 전체 삭제 함수
@@ -103,29 +110,6 @@ def deleteItem(db):
     time.sleep(0.5)
 
 
-def exportDB(db):
-    try:
-        with open(TODO_DB_PATH, "wb") as f:
-            pickle.dump(db, f)
-        print("\n[Success] 파일 저장이 완료되었습니다. (내보내기)")
-    except Exception as e:
-        print(f"\n[Error] 저장 중 문제가 발생했습니다: {e}")
-
-
-def importDB():
-    if not os.path.exists(TODO_DB_PATH):
-        print("\n[Notice] 저장된 파일이 없습니다. 빈 데이터를 반환합니다.")
-        return {}
-
-    try:
-        with open(TODO_DB_PATH, "rb") as f:
-            loaded_db = pickle.load(f)
-            print("\n[Success] 파일 불러오기가 완료되었습니다. (불러오기)")
-            return loaded_db
-    except (EOFError, FileNotFoundError):
-        return {}
-
-
 #로그인 진행
 def login(id, pw):
     while True:
@@ -182,7 +166,7 @@ def newUser():
             time.sleep(0.5)
 
 
-#메인창
+''' 첫 화면 '''
 def main(basicId, basicPw):
     global lastId
     while True:
@@ -254,8 +238,8 @@ def viewByDate(db, target):
         print(f"\n--- {target} 할 일 목록 ---")
 
         tasks = db[target]
-        for task in tasks:
-            print("-", task)
+        for idx, task in enumerate(tasks, 1):
+            print(f"[{idx}] {task}")
         time.sleep(1)
     else:
         print("\n[Notice] 해당 날짜에 등록된 할 일이 없습니다.")
@@ -341,9 +325,10 @@ def todoUpdate():
     global lastId
     db = loadDB()
     while True:
-        print(list(loadDB().keys())) #날짜 출력 깔끔하게 하고 싶다
-        print("\n어느 날짜의 할 일을 선택하시겠습니까?")
+        print(list(loadDB().keys()))  #날짜 출력 깔끔하게 하고 싶다
+        print("어느 날짜의 할 일을 선택하시겠습니까?")
         date = input(": ")
+        print("\n")
         try:
             oldList = db[date]
             break
@@ -361,7 +346,7 @@ def todoUpdate():
             time.sleep(0.5)
             continue
 
-        if idx < 0:
+        if idx < 0 or idx >= len(oldList):
             print("[Error] 0 이상의 숫자를 입력하세요.")
             time.sleep(0.5)
             continue
@@ -391,7 +376,7 @@ def todoUpdate():
                 time.sleep(0.5)
                 continue
         todoMain(lastId)
-        break
+        return
 
 
 """ ----- 할 일 삭제 ----- """
@@ -407,7 +392,7 @@ def deleteMenu():
     sub = input(": ")
 
     # 선택에 따른 기능 실행
-    if sub == "1":
+    if sub == "1":  
         deleteAll(db)
     elif sub == "2":
         deleteDate(db)
@@ -429,9 +414,13 @@ def manageMenu():
 
     # 선택에 따른 기능 실행
     if sub == "1":
-        exportDB(db)
+        saveDB(db)
+
     elif sub == "2":
-        importDB()  # DB 다시 불러오기
+        loaded_db = loadDB() 
+        if loaded_db:
+            viewAll(loaded_db)  # <----불러온 내용 즉시 확인
+            print("\n[Success] 파일 불러오기가 완료되었습니다. (불러오기)")
     else:
         print("[Notice] 잘못된 입력입니다.")
 
