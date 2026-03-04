@@ -178,7 +178,7 @@ def newUser():
             break
         #재확인 실패
         else:
-            print("  [Notice] 비밀번호가 일치하지 않습니다.")
+            print("[Notice] 비밀번호가 일치하지 않습니다.")
             time.sleep(0.5)
 
 
@@ -187,8 +187,8 @@ def main(basicId, basicPw):
     global lastId
     while True:
         print(f"\n========= [개인 할 일 관리 프로그램] =========")
-        if lastId == "": print("  [Notice] 처음이라면 회원가입을 진행해주세요!")
-        print("\t\t [1] 회원가입 | [2] 로그인")
+        if lastId == "": print("[Notice] 처음이라면 회원가입을 진행해주세요!")
+        print("\t[1] 회원가입 | [2] 로그인")
         print("어디로 이동할까요?")
         userinput = input(": ")
         if userinput == "1":
@@ -205,12 +205,12 @@ def main(basicId, basicPw):
 def todoMain(id):
     while True:
         print(f"\n========= {id}님, 환영합니다! =========")
-        print("\t\t  [1] 할 일 목록"
-              "\n\t\t  [2] 할 일 추가"
-              "\n\t\t  [3] 할 일 수정"
-              "\n\t\t  [4] 할 일 삭제"
-              "\n\t\t  [5] 목록 관리"
-              "\n\t\t  [6] 종료")
+        print("\t  [1] 할 일 목록"
+              "\n\t  [2] 할 일 추가"
+              "\n\t  [3] 할 일 수정"
+              "\n\t  [4] 할 일 삭제"
+              "\n\t  [5] 목록 관리"
+              "\n\t  [6] 종료")
         print("어디로 이동할까요?")
         userinput = input(": ")
         if userinput == "1":
@@ -219,10 +219,8 @@ def todoMain(id):
         elif userinput == "2":
             makeTodo()
         elif userinput == "3":
-            print(list(loadDB().keys())) #날짜 출력 깔끔하게 하고 싶다
-            print("\n어느 날짜의 할 일을 선택하시겠습니까?")
-            date = input(": ")
-            todoUpdate(date)
+            
+            todoUpdate()
             break
         elif userinput == "4":
             deleteMenu()
@@ -233,7 +231,7 @@ def todoMain(id):
             time.sleep(1)
             break
         else:
-            print("\n  [Notice] 올바른 숫자를 입력해주세요.")
+            print("\n[Notice] 올바른 숫자를 입력해주세요.")
             time.sleep(0.5)
 
 
@@ -260,12 +258,12 @@ def viewByDate(db, target):
             print("-", task)
         time.sleep(1)
     else:
-        print("\n  [Notice] 해당 날짜에 등록된 할 일이 없습니다.")
+        print("\n[Notice] 해당 날짜에 등록된 할 일이 없습니다.")
         time.sleep(0.5)
 
 
 def viewMenu(db):
-    print("\n\t\t [1] 전체 보기 | [2] 날짜별 보기")
+    print("\n\t[1] 전체 보기 | [2] 날짜별 보기")
     print("어디로 이동할까요?")
     choice = input(": ")
 
@@ -273,13 +271,13 @@ def viewMenu(db):
         viewAll(db)
     elif choice == "2":
         if len(db) == 0:
-            print("\n  [Notice] 등록된 데이터가 없습니다.")
+            print("\n[Notice] 등록된 데이터가 없습니다.")
             time.sleep(0.5)
         print("\n조회할 날짜를 입력하세요 ex) 2_27")
         target = input(": ")
         viewByDate(db, target)
     else:
-        print("\n  [Notice] 잘못된 입력입니다.")
+        print("\n[Notice] 잘못된 입력입니다.")
         time.sleep(0.5)
 
 
@@ -299,23 +297,23 @@ def makeTodo():
                 if check1.match(date) is not None:
                     break
                 else:
-                    print('\n  [Notice] 올바른 날짜를 입력하세요.\n')
+                    print('\n[Notice] 올바른 날짜를 입력하세요.\n')
                     time.sleep(0.5)
             elif len(date) == 4:
                 if check2.match(date) is not None or check3.match(date) is not None or check4.match(
                         date) is not None or check5.match(date) is not None:
                     break
                 else:
-                    print('\n  [Notice] 올바른 날짜를 입력하세요.\n')
+                    print('\n[Notice] 올바른 날짜를 입력하세요.\n')
                     time.sleep(0.5)
             elif len(date) == 5:
                 if check6.match(date) is not None or check7.match(date) is not None or check8.match(date) is not None:
                     break
                 else:
-                    print('\n  [Notice] 올바른 날짜를 입력하세요.\n')
+                    print('\n[Notice] 올바른 날짜를 입력하세요.\n')
                     time.sleep(0.5)
             else:
-                print('\n  [Notice] 올바른 날짜를 입력하세요.\n')
+                print('\n[Notice] 올바른 날짜를 입력하세요.\n')
                 time.sleep(0.5)
 
         print("할 일을 입력해주세요.")
@@ -329,7 +327,7 @@ def makeTodo():
             if more == 'y' or more == 'n':
                 break
             else:
-                print('\n  [Notice] 올바른 답변을 입력하세요.\n')
+                print('\n[Notice] 올바른 답변을 입력하세요.\n')
                 time.sleep(0.5)
                 continue
         if more == 'y':
@@ -339,22 +337,32 @@ def makeTodo():
 
 
 """ ----- 할 일 수정 ----- """
-def todoUpdate(key):
+def todoUpdate():
     global lastId
     db = loadDB()
-    oldList = db[key]
     while True:
-        viewByDate(db, key)
+        print(list(loadDB().keys())) #날짜 출력 깔끔하게 하고 싶다
+        print("\n어느 날짜의 할 일을 선택하시겠습니까?")
+        date = input(": ")
+        try:
+            oldList = db[date]
+            break
+        except:
+            print('\n[Notice] 올바른 날짜를 입력하세요.\n')
+            continue
+    
+    while True:
+        viewByDate(db, date)
         print("어느 항목을 수정하시겠습니까?")
         try:
             idx = int(input("(숫자로 입력): ")) - 1
         except:
-            print("  [Error] 정확한 숫자를 입력하세요.")
+            print("[Error] 정확한 숫자를 입력하세요.")
             time.sleep(0.5)
             continue
 
         if idx < 0:
-            print("  [Error] 0 이상의 숫자를 입력하세요.")
+            print("[Error] 0 이상의 숫자를 입력하세요.")
             time.sleep(0.5)
             continue
 
@@ -368,7 +376,7 @@ def todoUpdate(key):
             updateCheck = input(": ")
             if updateCheck == "y":
                 #값은 직접 db를 타고 들어가 변경
-                db[key][idx] = new
+                db[date][idx] = new
                 saveDB(db)
 
                 print("\n[Notice] 할 일이 변경되었습니다. 잠시 후 메인 화면으로 돌아갑니다.")
@@ -406,7 +414,7 @@ def deleteMenu():
     elif sub == "3":
         deleteItem(db)
     else:
-        print("  [Notice] 잘못된 입력입니다.")
+        print("[Notice] 잘못된 입력입니다.")
 
 
 """ 할 일 관리 """
@@ -414,7 +422,7 @@ def manageMenu():
     db = loadDB()
 
     print("\n========= [관리 메뉴] =========")
-    print("\t\t [1] 내보내기\n[2] 불러오기")
+    print("\t [1] 내보내기\n[2] 불러오기")
 
     print("어디로 이동할까요?")
     sub = input(": ")
@@ -425,7 +433,7 @@ def manageMenu():
     elif sub == "2":
         importDB()  # DB 다시 불러오기
     else:
-        print("  [Notice] 잘못된 입력입니다.")
+        print("[Notice] 잘못된 입력입니다.")
 
 
 """ ----- 할 일 관리 프로그램 시작 ----- """
