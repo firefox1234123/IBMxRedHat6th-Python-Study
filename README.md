@@ -1,22 +1,22 @@
 
-|          [정다연](https://github.com/firefox1234123)          |          [권아림](https://github.com/kwon-arim)          |          [박건일](url)          |          [반고호](https://github.com/GOHOPAN)          |          [이재환](url)          |
+|          [정다연](https://github.com/firefox1234123)          |          [권아림](https://github.com/kwon-arim)          |          [박건일](https://github.com/gunil123)         |          [반고호](https://github.com/GOHOPAN)          |          [이재환](https://github.com/jaehwan990319-cyber)          |
 | :----------------------------------------------------: | :---------------------------------------------------------: | :----------------------------------------------------: | :----------------------------------------------------------: | :-----------------------------------------------------------: |
-| <img src="https://github.com/firefox1234123.png" width="150"> | <img src="https://github.com/kwon-arim.png" width="150"> | <img src="https://github.com/(yourself).png" width="150"> | <img src="https://github.com/GOHOPAN.png" width="150"> | <img src="https://github.com/(yourself).png" width="150"> |
+| <img src="https://github.com/firefox1234123.png" width="150"> | <img src="https://github.com/kwon-arim.png" width="150"> | <img src="https://github.com/gunil123.png" width="150"> | <img src="https://github.com/GOHOPAN.png" width="150"> | <img src="https://github.com/jaehwan990319-cyber.png" width="150"> |
 
-**정다연**
+**정다연**<br>
 (한 거 설명)
 
-**권아림**
+**권아림**<br>
 클래스/ c(create), r(read), u(update), d(delete) 중 d(delete) 기능을 구현한 것으로, 전체, 날짜별, 개별 항목 삭제를 수정하고 변경 내용을 파일에 저장하는 기능
 
-**박건일**
+**박건일**<br>
 (한 거 설명)
 
-**반고호**
+**반고호**<br>
 파이썬에서 할 일을 입력받아 저장하는 함수를 만들었다. 
 먼저 할 일에 해당하는 날짜를 입력받는데, 이 때 정규표현식을 이용해 입력받은 날짜가 올바른 날짜인지, 또는 올바르지 않은 날짜인지 확인한다. 올바르지 않을 경우 메세지를 출력한 뒤 무한반복문을 사용해 다시 날짜를 입력받고, 올바를 경우 break 함수를 이용해 무한반복문을 탈출한다. 
 이후 할일을 입력받는데, 클래스를 활용하여 딕셔너리에 날짜에 할일 리스트를 대응하여 저장한다. 
 그 후에는 추가로 입력할 것인지 묻고 continue, break를 활용해 추가로 받거나, 할일 입력을 끝내거나를 구현했다
 
-**이재환**
+**이재환**<br>
 (한 거 설명)
