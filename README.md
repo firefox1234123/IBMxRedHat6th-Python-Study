@@ -4,7 +4,10 @@
 | <img src="https://github.com/firefox1234123.png" width="150"> | <img src="https://github.com/kwon-arim.png" width="150"> | <img src="https://github.com/gunil123.png" width="150"> | <img src="https://github.com/GOHOPAN.png" width="150"> | <img src="https://github.com/jaehwan990319-cyber.png" width="150"> |
 
 **정다연**<br>
-(한 거 설명)
+협업을 위해 func 내부에 각각 while True(무한 루프)를 가지는 형태로 전체 구조 작성
+할 일 하나하나를 Todo Class로 정의
+할 일 수정을 다음 흐름으로 작성
+: 날짜 선택(+날짜 예외처리)->선택한 날짜 안에서 수정할 항목 선택(+인덱스 예외처리)->어떻게 수정할 것인지->변경 확인(+y/n예외처리)
 
 **권아림**<br>
 클래스/ c(create), r(read), u(update), d(delete) 중 d(delete) 기능을 구현한 것으로, 전체, 날짜별, 개별 항목 삭제를 수정하고 변경 내용을 파일에 저장하는 기능
